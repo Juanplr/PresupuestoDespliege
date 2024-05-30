@@ -10,7 +10,7 @@ namespace conexion
         }
         public MySqlConnection crearConexion()
         {
-            string connectionString = "server=localhost;user=root;password=Perro16tonto;database=prueba";
+            string connectionString = "server=bahh1qqfgt63a6odemxa-mysql.services.clever-cloud.com;user=uprscmbmpp14utjr;password=e82X2glxPCOQxn2o87W6;database=bahh1qqfgt63a6odemxa";
             MySqlConnection conexion = new MySqlConnection(connectionString);
             try
             {
