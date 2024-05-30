@@ -22,7 +22,7 @@ namespace practica03
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSoapCore();
-            services.TryAddSingleton<iPresupuesto,Presupuesto>();
+            services.TryAddSingleton<iPresupuesto, Presupuesto>();
             services.AddMvc();
         }
 
@@ -36,9 +36,10 @@ namespace practica03
 
             app.UseRouting();
 
-			app.UseEndpoints(endpoints => {
-				endpoints.UseSoapEndpoint<iPresupuesto>("/Presupuesto.dran", new SoapEncoderOptions(), SoapSerializer.DataContractSerializer);
-			});
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.UseSoapEndpoint<iPresupuesto>("/Presupuesto.dran", new SoapEncoderOptions(), SoapSerializer.DataContractSerializer);
+            });
         }
     }
 }
