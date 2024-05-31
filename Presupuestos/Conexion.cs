@@ -11,7 +11,7 @@ namespace conexion
         }
         public MySqlConnection crearConexion()
         {
-            string connectionString = "server=viaduct.proxy.rlwy.net;password=GFcoAGisJLuUeiXNWgxtWQbUBFjIIDPc;database=railway";
+            string connectionString = "server=bahh1qqfgt63a6odemxa-mysql.services.clever-cloud.com;user=uprscmbmpp14utjr;password=e82X2glxPCOQxn2o87W6;database=bahh1qqfgt63a6odemxa";
             MySqlConnection conexion = new MySqlConnection(connectionString);
             try
             {
