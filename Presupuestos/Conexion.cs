@@ -5,12 +5,13 @@ namespace conexion
 {
     public class Conexion
     {
-        public Conexion(){
-            
+        public Conexion()
+        {
+
         }
         public MySqlConnection crearConexion()
         {
-            string connectionString = "server=bahh1qqfgt63a6odemxa-mysql.services.clever-cloud.com;user=uprscmbmpp14utjr;password=e82X2glxPCOQxn2o87W6;database=bahh1qqfgt63a6odemxa";
+            string connectionString = "server=viaduct.proxy.rlwy.net;password=GFcoAGisJLuUeiXNWgxtWQbUBFjIIDPc;database=railway";
             MySqlConnection conexion = new MySqlConnection(connectionString);
             try
             {
@@ -31,7 +32,8 @@ namespace conexion
                 return null;
             }
         }
-        public void cerrarConexion(MySqlConnection conexion){
+        public void cerrarConexion(MySqlConnection conexion)
+        {
             conexion.Close();
         }
     }
