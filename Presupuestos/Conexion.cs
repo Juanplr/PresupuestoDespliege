@@ -7,11 +7,11 @@ namespace conexion
     {
         public Conexion()
         {
-
         }
+
         public MySqlConnection crearConexion()
         {
-            string connectionString = "server=bahh1qqfgt63a6odemxa-mysql.services.clever-cloud.com;user=uprscmbmpp14utjr;password=e82X2glxPCOQxn2o87W6;database=bahh1qqfgt63a6odemxa";
+            string connectionString = "server=monorail.proxy.rlwy.net;port=32933;user=root;password=KWuHBUErQDxsXYAGPdZdxxOCqdUNDIuA;database=prueba";
             MySqlConnection conexion = new MySqlConnection(connectionString);
             try
             {
@@ -32,9 +32,14 @@ namespace conexion
                 return null;
             }
         }
+
         public void cerrarConexion(MySqlConnection conexion)
         {
-            conexion.Close();
+            if (conexion != null && conexion.State == System.Data.ConnectionState.Open)
+            {
+                conexion.Close();
+                Console.WriteLine("Conexión cerrada correctamente.");
+            }
         }
     }
 }

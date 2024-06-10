@@ -1,15 +1,20 @@
 using System;
+using System.Collections;
+using System.Runtime.Serialization;
 using MySql.Data.MySqlClient;
+using departamento;
+using System.Data;
+
 namespace consultas
 {
+    [KnownType(typeof(Departamento))]
     public class Consultas
     {
-        public Consultas(){
-            
-        }
+        public Consultas() { }
+
         public decimal ObtenerCantidad(int id, MySqlConnection conexion)
         {
-            decimal cantidad =0;
+            decimal cantidad = 0;
             string query = "SELECT cantidad FROM presupuesto WHERE id = @id";
             MySqlCommand cmd = new MySqlCommand(query, conexion);
             cmd.Parameters.AddWithValue("@id", id);
@@ -36,6 +41,35 @@ namespace consultas
             return cantidad;
         }
 
+        public List<Departamento> ObtenerDepartamentos(MySqlConnection conexion)
+        {
+            List<Departamento> departamentos = new List<Departamento>();
+            string query = "SELECT * FROM presupuesto";
+            MySqlCommand cmd = new MySqlCommand(query, conexion);
+
+            try
+            {
+                using (MySqlDataReader rdr = cmd.ExecuteReader())
+                {
+                    while (rdr.Read())
+                    {
+                        Departamento departamento = new Departamento
+                        {
+                            ID = rdr.GetInt16("id"),
+                            Monto = rdr.GetDecimal("cantidad"),
+                            Nombre = rdr.GetString("nombre")
+                        };
+                        departamentos.Add(departamento);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener la cantidad: " + ex.Message);
+            }
+            return departamentos;
+        }
+
         public bool ActualizarCantidad(int id, decimal nuevaCantidad, MySqlConnection conexion)
         {
             bool bandera = false;
@@ -47,14 +81,7 @@ namespace consultas
             try
             {
                 int rowsAffected = cmd.ExecuteNonQuery();
-                if (rowsAffected > 0)
-                {
-                    bandera = true;
-                }
-                else
-                {
-                    bandera = false;
-                }
+                bandera = rowsAffected > 0;
             }
             catch (Exception ex)
             {

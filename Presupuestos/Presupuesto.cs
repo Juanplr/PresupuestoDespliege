@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic; // Cambiado de ArrayList a List
 using conexion;
 using consultas;
+using departamento;
 using ipresupuesto;
 
 namespace presupuesto
@@ -10,21 +12,22 @@ namespace presupuesto
         Conexion conexion = new Conexion();
         Consultas consultas = new Consultas();
         decimal cantidad = 0;
+
         public string agregarPresupuesto(int id, decimal monto)
         {
             string bandera = "";
             cantidad = consultas.ObtenerCantidad(id, conexion.crearConexion());
             if (monto <= 0)
             {
-                bandera = "NO Puedes meter numeros negativos";
+                bandera = "NO Puedes meter números negativos";
             }
             else
             {
                 cantidad += monto;
                 if (consultas.ActualizarCantidad(id, cantidad, conexion.crearConexion()))
-                    bandera = "Se actualizo el presupuesto correctamente";
+                    bandera = "Se actualizó el presupuesto correctamente";
                 else
-                    bandera = "No se pudo actualizar El presupuesto";
+                    bandera = "No se pudo actualizar el presupuesto";
             }
             return bandera;
         }
@@ -32,18 +35,12 @@ namespace presupuesto
         public bool alcanzaElPresupuesto(int id, decimal monto)
         {
             cantidad = consultas.ObtenerCantidad(id, conexion.crearConexion());
-            bool bandera = false;
-            if (cantidad >= monto)
-                bandera = true;
-            else
-                bandera = false;
-            return bandera;
+            return cantidad >= monto;
         }
 
         public decimal mostrarPresupuestoDisponible(int id)
         {
-            cantidad = consultas.ObtenerCantidad(id, conexion.crearConexion());
-            return cantidad;
+            return consultas.ObtenerCantidad(id, conexion.crearConexion());
         }
 
         public string sustraerPresupuesto(int id, decimal monto)
@@ -52,17 +49,22 @@ namespace presupuesto
             cantidad = consultas.ObtenerCantidad(id, conexion.crearConexion());
             if (monto > cantidad)
             {
-                bandera = "No puedes sacar mas de: $" + cantidad;
+                bandera = $"No puedes sacar más de: ${cantidad}";
             }
             else
             {
                 cantidad -= monto;
                 if (consultas.ActualizarCantidad(id, cantidad, conexion.crearConexion()))
-                    bandera = "Se actualizo el Presupuesto";
+                    bandera = "Se actualizó el presupuesto";
                 else
-                    bandera = "Nose pudo Actualizar el presupuesto";
+                    bandera = "No se pudo actualizar el presupuesto";
             }
             return bandera;
+        }
+
+        public List<Departamento> mostrarDepartamentos() // Cambiado a List<Departamento>
+        {
+            return consultas.ObtenerDepartamentos(conexion.crearConexion());
         }
     }
 }

@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ServiceModel;
+using departamento;
 
 namespace ipresupuesto
 {
@@ -7,13 +9,18 @@ namespace ipresupuesto
     public interface iPresupuesto
     {
         [OperationContract]
-        public decimal mostrarPresupuestoDisponible(int id);
-        [OperationContract]
-        public string agregarPresupuesto(int id, decimal monto);
-        [OperationContract]
-        public string sustraerPresupuesto(int id, decimal monto);
-        [OperationContract]
-        public bool alcanzaElPresupuesto(int id, decimal monto);
+        decimal mostrarPresupuestoDisponible(int id);
 
+        [OperationContract]
+        string agregarPresupuesto(int id, decimal monto);
+
+        [OperationContract]
+        string sustraerPresupuesto(int id, decimal monto);
+
+        [OperationContract]
+        bool alcanzaElPresupuesto(int id, decimal monto);
+
+        [OperationContract]
+        List<Departamento> mostrarDepartamentos(); // Cambiado a List<Departamento>
     }
 }
